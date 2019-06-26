@@ -26,10 +26,17 @@ spring:
     maxPoolPreparedStatementPerConnectionSize: 20
     filters: stat,wall,log4j
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=50000
+#  jms:
+#    pub-sub-domain: false   # 配置消息的类型，如果是true则表示为topic消息，如果为false表示Queue消息
   activemq:
-    broker-url: tcp://localhost:8161
+    broker-url: tcp://localhost:61616 # 消息组件的连接主机信息
     user: admin
     password: admin
+    in-memory: true
+    pool:
+      enabled: false
+
+
 
 mybatis:
   type-aliases-package: com.van.netty.model
