@@ -1,10 +1,7 @@
 package com.van.app.mapper;
 
 import com.van.app.model.User;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -20,4 +17,13 @@ public interface UserMapper {
 
    @Update("update user set name = #{name}, age = #{age} where id = #{id}")
    int update(User user);
+
+   @Select("select * from user where name = #{name}")
+   User getByName(@Param("name") String name);
+
+   @Select("select count(*) from user where age = #{age} ")
+   int getCount(@Param("age") int age);
+
+   @Insert("insert into user(name, age) values (#{name}, #{age})")
+   int insertUser(User user);
 }

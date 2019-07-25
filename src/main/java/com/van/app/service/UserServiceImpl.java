@@ -3,9 +3,11 @@ package com.van.app.service;
 import com.van.app.mapper.UserMapper;
 import com.van.app.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -13,7 +15,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-@Service
+@Primary
+@Service("userServiceImpl")
 public class UserServiceImpl implements UserService {
 
     @Resource
@@ -54,6 +57,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Transactional()
     @Override
     public int update(User user) {
         int flag = userMapper.update(user);
@@ -62,6 +66,18 @@ public class UserServiceImpl implements UserService {
             redisTemplate.opsForValue().set(String.valueOf(user.getId()), user, 600, TimeUnit.SECONDS);
 //            redisTemplate.delete(String.valueOf(user.getId()));
         }
+        return flag;
+    }
+
+    @Override
+    public User getUserByName(String name, int age) {
+        User user = userMapper.getByName(name);
+        return user;
+    }
+
+    @Override
+    public int addOne(User user) {
+        int flag = userMapper.insertUser(user);
         return flag;
     }
 }

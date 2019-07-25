@@ -2,14 +2,17 @@ package com.van.app;
 
 import com.van.app.util.LRUCache;
 import com.van.app.util.LRUUtil;
+import org.junit.Assert;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class Demo {
+    public volatile int i = 0;
 
     @Test
     public void test(){
@@ -96,5 +99,49 @@ public class Demo {
          System.out.println(lru.toString());
      }
 
+     @Test
+     public void test5() {
+         BigDecimal decimal1 = new BigDecimal("0.04");
+         BigDecimal decimal2 = new BigDecimal("0.02");
+         System.out.println(decimal1.add(decimal2));
+         Assert.assertEquals(new BigDecimal("0.06"), decimal1.add(decimal2));
+         System.out.println(decimal1.subtract(decimal2));
+         System.out.println(decimal1.multiply(decimal2));
+         System.out.println(decimal1.divide(decimal2));
+     }
+
+
+     @Test
+     public void test6() throws InterruptedException {
+        JoinMain joinMain = new JoinMain();
+      Thread thread = new Thread(joinMain);
+        thread.start();
+//        thread.join();
+         System.out.println(i);
+     }
+
+
+     class JoinMain implements Runnable {
+
+         @Override
+         public void run() {
+             for (i=0; i< 1000000; i++) {
+
+             }
+         }
+     }
+
+     @Test
+     public void test7() {
+        for (int i=0;;) {
+            System.out.println(++i);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+     }
 
 }

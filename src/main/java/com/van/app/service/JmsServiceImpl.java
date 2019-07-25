@@ -14,7 +14,7 @@ public class JmsServiceImpl implements JmsService {
         return jmsMessage("123");
     }
 
-    @JmsListener(destination = "time")
+//    @JmsListener(destination = "time")
     private String jmsMessage(String message){
         return message;
     }
