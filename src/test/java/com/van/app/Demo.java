@@ -2,14 +2,16 @@ package com.van.app;
 
 import com.van.app.util.LRUCache;
 import com.van.app.util.LRUUtil;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Demo {
     public volatile int i = 0;
@@ -143,5 +145,19 @@ public class Demo {
         }
 
      }
+
+
+     @Test
+     public void test8() {
+        int[] array = {1,2,3,4,5};
+         Arrays.stream(array).map(i -> (i%2==0? i : i+1)).forEach(System.out::println);
+         try {
+             SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(new FileInputStream(""));
+             SqlSession sqlSession = factory.openSession();
+         } catch (FileNotFoundException e) {
+             e.printStackTrace();
+         }
+     }
+
 
 }

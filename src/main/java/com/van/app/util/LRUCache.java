@@ -5,14 +5,14 @@ import java.util.HashMap;
 public class LRUCache<K, V> {
 
     private final int capacity;
-    private int currentCapacity;
+//    private int currentCapacity;
     private HashMap<K, CacheNode> caches;
     private CacheNode first;
     private CacheNode last;
 
     public LRUCache(int capacity) {
         this.capacity = capacity;
-        currentCapacity = 0;
+//        currentCapacity = 0;
         caches = new HashMap<>(capacity);
     }
 
@@ -123,6 +123,21 @@ public class LRUCache<K, V> {
         CacheNode next;
         Object key;
         Object value;
+    }
+
+
+    public static void main(String[] args) {
+        LRUCache<Integer, Integer> lruCache = new LRUCache<>(10);
+        for (int i=0; i< 15; i++) {
+            lruCache.put(i, i);
+        }
+
+        System.out.println(lruCache.toString());
+        lruCache.remove(8);
+        System.out.println(lruCache.toString());
+        lruCache.put(5, 6);
+        System.out.println(lruCache.toString());
+
     }
 
 }

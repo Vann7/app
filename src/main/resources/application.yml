@@ -35,6 +35,8 @@ spring:
     in-memory: true
     pool:
       enabled: false
+netty:
+  server-port: 9898
 
 
 
